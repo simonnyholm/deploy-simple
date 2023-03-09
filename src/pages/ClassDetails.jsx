@@ -8,7 +8,7 @@ const ClassDetails = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3222/api/v1/locations/" + id)
+    fetch("https://gereo-api-v.onrender.com/api/v1/locations/" + id)
       .then((response) => {
         if (!response.ok) {
           throw Error("Vi kunne desværre ikke indlæse");

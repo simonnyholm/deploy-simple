@@ -15,7 +15,7 @@ export default function Home() {
     (async function () {
       try {
         const response = await axios.get(
-          "http://localhost:3222/api/v1/locations"
+          "https://gereo-api-v.onrender.com/api/v1/locations"
         );
         console.log("resp", response);
 
@@ -33,7 +33,7 @@ export default function Home() {
 
   return (
     <>
-      <h1 className="text-2xl p-12">Besøg disse steder</h1>
+      <h1 className="text-2xl p-12">Besøg disse steder i dag</h1>
       <p className="pl-12 pt-2">Vi vil frygteligt gerne gette fra apiet</p>
       {token && <h4>Velkommen bruger</h4>}
       <section className="p-10">
