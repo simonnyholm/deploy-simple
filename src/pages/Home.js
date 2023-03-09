@@ -1,13 +1,13 @@
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { TokenContext } from "../contexts/TokenProvider";
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const [allLocations, setAllLocations] = useState();
   const [isLoading, setIsLoading] = useState();
   const [error, setError] = useState();
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const { token } = useContext(TokenContext);
 
@@ -41,7 +41,10 @@ export default function Home() {
 
         {allLocations &&
           allLocations.map((item) => (
-            <article className="p-6">
+            <article
+              onClick={() => navigate(`/classdetails/${item._id}`)}
+              className="p-6"
+            >
               <h1 className="text-[22px]">{item.name}</h1>
               <p>{item.address}</p>
               <p>{item.city}</p>

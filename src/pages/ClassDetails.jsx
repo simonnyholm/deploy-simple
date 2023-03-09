@@ -3,39 +3,40 @@ import { useState, useEffect } from "react";
 
 const ClassDetails = () => {
   const { id } = useParams();
-  const [classDetail, setClassDetail] = useState();
+  const [locationDetail, setlocationDetail] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:4000/api/v1/classes/" + id)
+    fetch("http://localhost:3222/api/v1/locations/" + id)
       .then((response) => {
         if (!response.ok) {
-          throw Error("Vi kunne desværre ikke indlæse kursusinformationerne");
+          throw Error("Vi kunne desværre ikke indlæse");
         }
         return response.json();
       })
       .then((data) => {
         setIsLoading(false);
-        setClassDetail(data);
+        setlocationDetail(data);
         setError(null);
       })
       .catch((err) => {
         setIsLoading(false);
         setError(err.message);
       });
-  }, [setClassDetail, setIsLoading, setError, id]);
+  }, [setlocationDetail, setIsLoading, setError, id]);
 
-  console.log(classDetail);
+  console.log(locationDetail);
 
   return (
     <div>
-      {classDetail && (
+      {isLoading && <p>...Indlæser</p>}
+      {locationDetail && (
         <>
-          <h1>{classDetail.className}</h1>
-          <p>{classDetail.classDescription}</p>
+          <h1>{locationDetail.name}</h1>
         </>
       )}
+      {error && <p>{error}</p>}
     </div>
   );
 };
