@@ -15,7 +15,7 @@ export default function Login() {
     setIsLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:4000/auth/token", {
+      const response = await axios.post("http://localhost:3222/auth/token", {
         username: event.target.username.value,
         password: event.target.password.value,
       });

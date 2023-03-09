@@ -1,14 +1,13 @@
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { TokenContext } from "../contexts/TokenProvider";
-import { useNavigate } from "react-router-dom";
-import Filter from "../components/Filter";
+//import { useNavigate } from "react-router-dom";
 
 export default function Home() {
-  const [classes, setClasses] = useState();
+  const [allLocations, setAllLocations] = useState();
   const [isLoading, setIsLoading] = useState();
   const [error, setError] = useState();
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   const { token } = useContext(TokenContext);
 
@@ -16,12 +15,11 @@ export default function Home() {
     (async function () {
       try {
         const response = await axios.get(
-          "http://localhost:4000/api/v1/classes"
+          "http://localhost:3222/api/v1/locations"
         );
-        console.log(response);
-        if (response.status === 200) {
-          setClasses(response.data);
-        }
+        console.log("resp", response);
+
+        setAllLocations(response.data.results);
       } catch (error) {
         setError(error);
         console.log(error);
@@ -31,25 +29,26 @@ export default function Home() {
     })();
   }, []);
 
-  console.log("klasser", classes);
+  console.log("allLocations", allLocations);
 
   return (
     <>
-      <h1 class="text-2xl">Home</h1>
+      <h1 className="text-2xl p-12">Besøg disse steder</h1>
+      <p className="pl-12 pt-2">Vi vil frygteligt gerne gette fra apiet</p>
       {token && <h4>Velkommen bruger</h4>}
-      <section>
+      <section className="p-10">
         {isLoading && <p>..loading</p>}
 
-        {classes &&
-          classes?.map((item, index) => (
-            <article onClick={() => navigate(`/classdetails/${item.id}`)}>
-              <h2>{item.className}</h2>
-              <p>{item.classDescription}</p>
+        {allLocations &&
+          allLocations.map((item) => (
+            <article className="p-6">
+              <h1 className="text-[22px]">{item.name}</h1>
+              <p>{item.address}</p>
+              <p>{item.city}</p>
             </article>
           ))}
         {error && <p>{error.message}</p>}
       </section>
-      <Filter />
     </>
   );
 }
