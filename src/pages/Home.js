@@ -34,7 +34,9 @@ export default function Home() {
   return (
     <>
       <h1 className="text-2xl p-12">Besøg disse steder i dag</h1>
-      <p className="pl-12 pt-2">Vi vil frygteligt gerne gette fra apiet</p>
+      <p className="pl-12 pt-2">
+        Vi vil frygteligt gerne gette fra apiet, hvis vi må
+      </p>
       {token && <h4>Velkommen bruger</h4>}
       <section className="p-10">
         {isLoading && <p>..loading</p>}
